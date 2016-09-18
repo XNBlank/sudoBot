@@ -1,0 +1,13 @@
+{
+  "token": "your_bot_token_here",
+
+  "prefix_settings":{
+    "prefix": "sudo",
+    "use_space": true
+  },
+
+  "modules": ["general","fun"],
+
+  "user_roles": ["a_role","another_role"]
+
+}

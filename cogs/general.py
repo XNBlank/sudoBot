@@ -5,7 +5,7 @@ import json;
 
 class General:
     """
-    General commands from SudoPy Bot.s
+    General commands from sudobotPy.
     """
 
     def __init__(self, bot, config):

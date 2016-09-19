@@ -7,6 +7,7 @@ import datetime;
 
 #Import Modules
 import cogs.general;
+import cogs.fun;
 
 #Load the config file and assign it to a variable.
 with open('config.json', 'r') as c_json:
@@ -61,6 +62,8 @@ def timedelta_str(dt):
 def ready(bot, config):
     if 'general' in config['modules']:
         bot.add_cog(cogs.general.General(bot, config));
+    if 'fun' in config['modules']:
+        bot.add_cog(cogs.fun.Fun(bot, config));
 
 ready(bot, config);
 

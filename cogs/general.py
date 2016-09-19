@@ -1,7 +1,9 @@
 import discord;
 from discord.ext import commands;
+import aiohttp;
 import json;
-
+import sys;
+import subprocess;
 
 class General:
     """
@@ -14,7 +16,23 @@ class General:
 
     @commands.command(pass_context=True)
     async def joindistro(self, ctx, *, distro : str):
-        """Join one of the many distribution roles available."""
+        """Join one of the many distribution roles available.
+        ```
+        ```tex
+        # Gentoo
+        # Mint
+        # Void
+        # Manjaro
+        # Arch
+        # Fedora
+        # Debian
+        # Ubuntu
+        # BSD
+        # RedHat
+        # ElementaryOS
+        # Windows
+        # MacOSX
+        """
         _server = ctx.message.server;
         _member = ctx.message.author;
 
@@ -72,6 +90,31 @@ class General:
                             return await self.bot.say('```Error : ' + str(error) + '```');
             elif idx >= len(_roles)-1:
                 return await self.bot.say('You\'re not in that role.');
+
+    @commands.command()
+    async def findpkg(self, *, query : str):
+        """Prints out packages from the arch repo and aur."""
+        print('Searching for {0} in Arch repositories and the AUR.'.format(query));
+
+        pkgs = [];
+
+        async with aiohttp.get('https://www.archlinux.org/packages/search/json/?q={0}'.format(query)) as r:
+            ar = r.json()['results'];
+            for res in ar:
+                pkgs.append(res['pkgname']);
+
+#        async with aiohttp.get('http://aur4.archlinux.org/rpc.php?type=search&arg={0}'.format(query)) as u:
+#            au = u.json()['results'];
+#            for res in au:
+#                pkgs.append(['AUR', res['Name'], 'any', res['Version'], res['Description']]);
+
+            if(len(pkgs) > 1):
+                await self.bot.say('Reply with the name of one of the following package names within 30 seconds to get more information.');
+                
+            else:
+                return await self.bot.say('No results found.');
+
+
 
     @commands.command(description='Return a link to the source code.')
     async def source(self):

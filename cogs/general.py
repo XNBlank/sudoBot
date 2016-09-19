@@ -91,28 +91,110 @@ class General:
             elif idx >= len(_roles)-1:
                 return await self.bot.say('You\'re not in that role.');
 
-    @commands.command()
-    async def findpkg(self, *, query : str):
-        """Prints out packages from the arch repo and aur."""
-        print('Searching for {0} in Arch repositories and the AUR.'.format(query));
+    @commands.command(pass_context=True)
+    async def pacman(self, ctx, cmd=None, *, query=None):
+        """Pacman commands.
+        ```
+        ```tex
+        Commands :
+        # -Ss [query] > searches the arch and aur repositories."""
+        if cmd == '-Ss':
 
-        pkgs = [];
+            if query is None:
+                return await self.bot.say('Invalid amount of arguments passed.');
 
-        async with aiohttp.get('https://www.archlinux.org/packages/search/json/?q={0}'.format(query)) as r:
-            ar = r.json()['results'];
-            for res in ar:
-                pkgs.append(res['pkgname']);
+            print('Searching for {0} in Arch repositories and the AUR.'.format(query));
 
-#        async with aiohttp.get('http://aur4.archlinux.org/rpc.php?type=search&arg={0}'.format(query)) as u:
-#            au = u.json()['results'];
-#            for res in au:
-#                pkgs.append(['AUR', res['Name'], 'any', res['Version'], res['Description']]);
+            await self.bot.say('Searching for {0} in Arch repositories and the AUR.'.format(query));
 
-            if(len(pkgs) > 1):
-                await self.bot.say('Reply with the name of one of the following package names within 30 seconds to get more information.');
-                
-            else:
-                return await self.bot.say('No results found.');
+            pkgs = [['Name','Repo','Arch']];
+            pkgsinfos = [['Name','Repo','Arch','Version','Description','URL']];
+
+            async with aiohttp.get('https://www.archlinux.org/packages/search/json/?q={0}'.format(query)) as r:
+                ar = await r.json();
+                ar = ar['results'];
+                print(len(ar));
+                for count, res in enumerate(ar):
+                    if count < 10:
+                        if not res['pkgname'] in pkgs:
+                            pkgs.append([res['pkgname'],res['repo'],res['arch']]);
+                            pkgsinfos.append([res['pkgname'],res['repo'],res['arch'],res['pkgver']+"-"+res['pkgrel'],res['pkgdesc'],res['url']]);
+                        else:
+                            count -= 1;
+
+            async with aiohttp.get('http://aur4.archlinux.org/rpc.php?type=search&arg={0}'.format(query)) as u:
+                au = await u.json();
+                au = au['results'];
+                print(len(au));
+                for count, res in enumerate(au):
+                    if count < 10:
+                        if not res['Name'] in pkgs:
+                            pkgs.append([res['Name'],'AUR','any']);
+                            pkgsinfos.append([res['Name'],'AUR','any',res['Version'],res['Description'],res['URL']]);
+                        else:
+                            count -= 1;
+
+                print(pkgs);
+
+                if(len(pkgs) > 1):
+                    result = '```tex\n';
+                    for cnt, i in enumerate(pkgs):
+                        if cnt < 20:
+                            result += '# ' + 'Repo : ' + i[1] + ' | Arch : ' + i[2] + '| Name : ' + i[0] + '\n';
+
+                    await self.bot.say('Reply with the name of one of the following package names within 20 seconds to get more information.');
+                    await self.bot.say(result + '\n```');
+
+                    def reply_check(m):
+                        print('Content of m : ' + m);
+                        if m in pkgs:
+                            return True;
+
+                    userReply = await self.bot.wait_for_message(timeout=20.0, author= ctx.message.author);
+
+                    try:
+                        replyMatch = reply_check(userReply.content);
+                    except Exception as error:
+                        print(error);
+                        print('Most likely a time-out.');
+
+                    if userReply is None:
+                        await self.bot.say('Timed out.');
+                        return;
+                    elif replyMatch == True:
+
+                        for j in pkgsinfos:
+                            print('Ready to send info. Find data.');
+                            if userReply.content in j:
+                                print('Found package!');
+                                print(j);
+                                pName = userReply.content;
+                                if 'AUR' in j:
+                                    print('IS IN AUR');
+                                    pVersion = j[3];
+                                    pDescription = j[4];
+                                    pSourceURL = j[5];
+                                    pURL = 'https://aur.archlinux.org/packages/' + pName;
+
+                                    await self.bot.say('Info on : {0}\n```tex\n# Package Name : {0}\n# Version : {1}\n# Description : {2}\n# Source : {3}\n# AUR : {4}```'.format(pName, pVersion, pDescription, pSourceURL, pURL));
+                                    return;
+                                else:
+                                    print('IS IN ARCH REPO');
+                                    pVersion = j[3];
+                                    pDescription = j[4];
+                                    pArch = j[2];
+                                    pRepo = j[1];
+                                    pSourceURL = j[5];
+
+                                    await self.bot.say('Info on : {0}\n```tex\n# Package Name : {0}\n# Version : {1}\n# Description : {2}\n# Arch : {3}\n# Repo : {4}\n# Source : {5}```'.format(pName, pVersion, pDescription, pArch, pRepo, pSourceURL));
+                                    return;
+                    else:
+                        return await self.bot.say('Previous search was exited.');
+
+                else:
+                    return await self.bot.say('No results found.');
+        elif cmd != "-Ss" or cmd == None:
+            return await self.bot.say('Invalid arguments passed.');
 
 
 

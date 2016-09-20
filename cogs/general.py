@@ -2,13 +2,9 @@ import discord;
 from discord.ext import commands;
 import aiohttp;
 import json;
-import sys;
-import subprocess;
 
 class General:
-    """
-    General commands from sudobotPy.
-    """
+    """ General commands from sudobotPy. """
 
     def __init__(self, bot, config):
         self.bot = bot;
@@ -67,7 +63,23 @@ class General:
 
     @commands.command(pass_context=True)
     async def leavedistro(self, ctx, *, distro : str):
-        """Leave a distribution role that is currently assigned to you."""
+        """Leave a distribution role that is currently assigned to you.
+        ```
+        ```tex
+        # Gentoo
+        # Mint
+        # Void
+        # Manjaro
+        # Arch
+        # Fedora
+        # Debian
+        # Ubuntu
+        # BSD
+        # RedHat
+        # ElementaryOS
+        # Windows
+        # MacOSX
+        """
         _server = ctx.message.server;
         _member = ctx.message.author;
         _roles = self.config["user_roles"];
@@ -115,8 +127,8 @@ class General:
                 ar = ar['results'];
                 print(len(ar));
                 for count, res in enumerate(ar):
-                    if count < 10:
-                        if not res['pkgname'] in pkgs:
+                    if count < 15:
+                        if not res['pkgname'] in pkgs and not res['arch'] in pkgs:
                             pkgs.append([res['pkgname'],res['repo'],res['arch']]);
                             pkgsinfos.append([res['pkgname'],res['repo'],res['arch'],res['pkgver']+"-"+res['pkgrel'],res['pkgdesc'],res['url']]);
                         else:
@@ -139,21 +151,32 @@ class General:
                 if(len(pkgs) > 1):
                     result = '```tex\n';
                     for cnt, i in enumerate(pkgs):
-                        if cnt < 20:
-                            result += '# ' + 'Repo : ' + i[1] + ' | Arch : ' + i[2] + '| Name : ' + i[0] + '\n';
+                        if cnt < 25:
+                            if cnt == 0:
+                                result += '$ ' + 'Repo : ' + i[1] + ' | Arch : ' + i[2] + ' | Name : ' + i[0] + '$\n';
+                            else:
+                                result += '# ' + 'Repo : ' + i[1] + ' | Arch : ' + i[2] + ' | Name : ' + i[0] + '\n';
 
-                    await self.bot.say('Reply with the name of one of the following package names within 20 seconds to get more information.');
+                    await self.bot.say('Reply with the name of one of the following package names and architecture (i686 or x86_64) within 20 seconds to get more information.');
                     await self.bot.say(result + '\n```');
 
                     def reply_check(m):
                         print('Content of m : ' + m);
-                        if m in pkgs:
-                            return True;
+                        m = m.split();
+                        if len(m) < 2:
+                            m.append('x86_64');
+                        print(m[0] + ' / ' + m[1]);
+                        if m[1] != 'i686' and m[1] != 'x86_64':
+                            m[1] = 'x86_64';
+                        for j in pkgs:
+                            if m[0] in j[0]:
+                                return [True,m[1],m[0]];
 
                     userReply = await self.bot.wait_for_message(timeout=20.0, author= ctx.message.author);
 
                     try:
                         replyMatch = reply_check(userReply.content);
+                        print(replyMatch);
                     except Exception as error:
                         print(error);
                         print('Most likely a time-out.');
@@ -161,14 +184,14 @@ class General:
                     if userReply is None:
                         await self.bot.say('Timed out.');
                         return;
-                    elif replyMatch == True:
-
+                    elif replyMatch[0] == True:
                         for j in pkgsinfos:
-                            print('Ready to send info. Find data.');
-                            if userReply.content in j:
+                            print('Checking...');
+
+                            if replyMatch[2] in j:
                                 print('Found package!');
                                 print(j);
-                                pName = userReply.content;
+                                pName = replyMatch[2];
                                 if 'AUR' in j:
                                     print('IS IN AUR');
                                     pVersion = j[3];
@@ -182,7 +205,7 @@ class General:
                                     print('IS IN ARCH REPO');
                                     pVersion = j[3];
                                     pDescription = j[4];
-                                    pArch = j[2];
+                                    pArch = replyMatch[1];
                                     pRepo = j[1];
                                     pSourceURL = j[5];
 

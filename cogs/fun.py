@@ -3,9 +3,7 @@ from discord.ext import commands;
 import textwrap;
 
 class Fun:
-    """
-    Commands that are used for fun.
-    """
+    """ Commands that are used for fun. """
 
     def __init__(self, bot, config):
         self.bot = bot;

@@ -6,7 +6,15 @@
     "use_space": true
   },
 
-  "modules": ["general","fun"],
+  "modules": {
+    "general" : true,
+    "fun" : true,
+    "mod" : true
+  },
+
+  "owner_ids": ["your-user-id"],
+
+  "log_channel": "your-public-ban-log-channel",
 
   "user_roles": ["a_role","another_role"]
 

@@ -8,6 +8,7 @@ import datetime;
 #Import Modules
 import cogs.general;
 import cogs.fun;
+import cogs.mod;
 
 #Load the config file and assign it to a variable.
 with open('config.json', 'r') as c_json:
@@ -60,10 +61,12 @@ def timedelta_str(dt):
         return '{0} days, {1} hours, {2} minutes and {3} seconds.'.format(days,hours,minutes,sec);
 
 def ready(bot, config):
-    if 'general' in config['modules']:
+    if config['modules']['general'] == True:
         bot.add_cog(cogs.general.General(bot, config));
-    if 'fun' in config['modules']:
+    if config['modules']['fun'] == True:
         bot.add_cog(cogs.fun.Fun(bot, config));
+    if config['modules']['mod'] == True:
+        bot.add_cog(cogs.mod.Mod(bot, config));
 
 ready(bot, config);
 

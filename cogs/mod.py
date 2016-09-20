@@ -19,6 +19,7 @@ class Mod:
         """
 
         channels = self.bot.get_all_channels();
+        moderator = ctx.message.author;
 
         print(channels);
 
@@ -31,12 +32,11 @@ class Mod:
                 print('Channel Name is ' + chan_id.name);
 
         try:
-            #await self.bot.kick(user);
-            print('This would kick.');
+            await self.bot.kick(user);
         except discord.Forbidden:
             await self.bot.say('The bot does not have permissions to kick members.');
         else:
-            await self.bot.send_message(chan_id, 'User **' + user.name + '** was kicked for reason :\n***' + reason + '***.');
+            await self.bot.send_message(chan_id, 'User **{0} : {1}** was kicked for reason :\n***{2}***\nKicked by : **{3}**'.format(user.name, user.id, reason, moderator.name));
 
     @commands.command(pass_context=True, no_pm=True)
     @checks.admin_or_permissions(ban_members=True)
@@ -47,6 +47,7 @@ class Mod:
         """
 
         channels = self.bot.get_all_channels();
+        moderator = ctx.message.author;
 
         print(channels);
 
@@ -59,12 +60,11 @@ class Mod:
                 print('Channel Name is ' + chan_id.name);
 
         try:
-            #await self.bot.ban(user);
-            print('This would ban.');
+            await self.bot.ban(user);
         except discord.Forbidden:
             await self.bot.say('The bot does not have permissions to ban members.');
         else:
-            await self.bot.send_message(chan_id, 'User **' + user.name + '** was banned for reason :\n***' + reason + '***.');
+            await self.bot.send_message(chan_id, 'User **{0} : {1}** was banned for reason :\n***{2}***\nBanned by : **{3}**'.format(user.name, user.id, reason, moderator.name));
 
 
     @commands.command(pass_context=True, no_pm=True)

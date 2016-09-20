@@ -20,5 +20,6 @@ Once you're ready just run `python bot.py` in the active directory to start the 
 
 - General : General commands used within a server. 
 - Fun : Commands that are fun for users to play with, and serve nothing other than lighthearted spammy goodness.
+- Mod : Administrative and Moderative commands.
 
 Currently, the only way to enable / disable these are through `config.json` but this will change in the future.

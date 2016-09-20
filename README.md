@@ -23,3 +23,21 @@ Once you're ready just run `python bot.py` in the active directory to start the 
 - Mod : Administrative and Moderative commands.
 
 Currently, the only way to enable / disable these are through `config.json` but this will change in the future.
+
+## Commands
+```php
+Fun:
+  cow         A speaking/thinking cow
+General:
+  leavedistro Leave a distribution role that is currently assigned to you.
+  pacman      Pacman commands.
+  joindistro  Join one of the many distribution roles available.
+  source      Post a link to the bot source code.
+Mod:
+  prune       Prunes bot messages.
+  ban         Bans a member from the server.
+  kick        Kicks a member from the server.
+Misc:
+  uptime      Check bot uptime.
+  help        Shows this message.
+```

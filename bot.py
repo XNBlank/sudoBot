@@ -1,33 +1,33 @@
-#General imports
+# General imports
 import discord;
 from discord.ext import commands;
 import asyncio;
 import json;
 import datetime;
 
-#Import Modules
+# Import Modules
 import cogs.general;
 import cogs.fun;
 import cogs.mod;
 
-#Load the config file and assign it to a variable.
+# Load the config file and assign it to a variable.
 with open('config.json', 'r') as c_json:
     config = json.load(c_json);
 
 description = '''sudobotPy is written in Python. Version 0.1''';
 
-#Assign the prefix.
+# Assign the prefix.
 prefix = config["prefix_settings"]["prefix"];
 
-#Check if prefix includes a spacer (example : sudo <command> instead of sudo<command>)
+# Check if prefix includes a spacer (example : sudo <command> instead of sudo<command>)
 if config["prefix_settings"]["use_space"] == True:
     prefix = prefix + ' ';
 
-#Create bot
+# Create bot
 bot = commands.Bot(command_prefix=prefix, description=description);
 
-#Create variable for time of startup.
-tu = datetime.datetime.now()
+# Create variable for time of startup.
+startupTime = datetime.datetime.now()
 
 
 @bot.event
@@ -42,10 +42,10 @@ async def on_ready():
 @bot.command()
 async def uptime():
     """Check bot uptime."""
-    global tu;
-    await bot.say(timedelta_str(datetime.datetime.now() - tu));
+    global startupTime;
+    await bot.say(timedelta_str(datetime.datetime.now() - startupTime));
 
-#Convert uptime to a string.
+# Convert uptime to a string.
 def timedelta_str(dt):
     days = dt.days;
     hours, r = divmod(dt.seconds, 3600);

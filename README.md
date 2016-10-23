@@ -27,17 +27,21 @@ Currently, the only way to enable / disable these are through `config.json` but 
 ## Commands
 ```php
 Fun:
-  cow         A speaking/thinking cow
+  cow          A speaking/thinking cow
+  profile      Get an information card on a user in this server.
+  profilesetup Setup your profile card
+  setprofilebg Set a profile card background image.
 General:
-  leavedistro Leave a distribution role that is currently assigned to you.
-  pacman      Pacman commands.
-  joindistro  Join one of the many distribution roles available.
-  source      Post a link to the bot source code.
+  joindistro   Join one of the many distribution roles available.
+  listdistro   List available user distro roles.
+  leavedistro  Leave a distribution role that is currently assigned to you.
+  pacman       Pacman commands.
+  source       Post a link to the bot source code.
 Mod:
-  prune       Prunes bot messages.
-  ban         Bans a member from the server.
-  kick        Kicks a member from the server.
+  kick         Kicks a member from the server.
+  ban          Bans a member from the server.
+  prune        Prunes bot messages.
 Misc:
-  uptime      Check bot uptime.
-  help        Shows this message.
+  uptime       Check bot uptime.
+  help         Shows this message.
 ```

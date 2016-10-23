@@ -147,7 +147,7 @@ class Fun:
             _questions = self.config["profile_questions"];
 
             try:
-                with open('data/users/profiles/{0}.dat'.format(ctx.message.author.id)) as f:
+                with open('data/users/profiles/{0}.dat'.format(_id)) as f:
                     _answers = json.load(f);
 
                 print(_answers);

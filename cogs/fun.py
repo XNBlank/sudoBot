@@ -159,9 +159,9 @@ class Fun:
                 for key, quest in zip(sorted(_answers),_questions):
                     print('{0} {1}:{2}'.format(key,quest,_answers[key]));
                     if(int(key) < 5):
-                        dd.text((80, 260 + ((int(key)-1) * 48)), textwrap.fill(quest,50) + "\n" + textwrap.fill(_answers[key],50), fill=(74, 144, 226, 255), font=desc_font);
+                        dd.text((80, 260 + ((int(key)-1) * 48)), textwrap.fill(quest,45) + "\n" + textwrap.fill(_answers[key],45), fill=(74, 144, 226, 255), font=desc_font);
                     else:
-                        dd.text((440, 260 + ((int(key)-6) * 48)), textwrap.fill(quest,50) + "\n" + textwrap.fill(_answers[key],50), fill=(74, 144, 226, 255), font=desc_font);
+                        dd.text((410, 260 + ((int(key)-6) * 48)), textwrap.fill(quest,45) + "\n" + textwrap.fill(_answers[key],45), fill=(74, 144, 226, 255), font=desc_font);
 
 
 
@@ -229,7 +229,7 @@ class Fun:
             if(_answer == None):
                 return await self.bot.send_message(ctx.message.author, 'Sorry. You seemed to have timed out. Send the command again to restart the setup process.');
             elif(_answer.content == 'skip'):
-                answers[i] = 'N/A';
+                answers[idx] = 'N/A';
             else:
                 answers[idx] = _answer.content;
 

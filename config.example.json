@@ -12,10 +12,12 @@
     "mod" : true
   },
 
-  "owner_ids": ["your-user-id"],
+  "owner_ids": ["YOUR_ID_HERE"],
 
-  "log_channel": "your-public-ban-log-channel",
+  "log_channel": "mod-logs",
 
-  "user_roles": ["a_role","another_role"]
+  "user_roles": ["a_role","another_role"],
+
+  "profile_questions": ["Question 1","Question 2"]
 
 }

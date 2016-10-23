@@ -7,6 +7,7 @@ These are needed to be able to run **sudobot**.
 
 - [Python 3.5](https://www.python.org/)
 - [Discord.py](https://github.com/Rapptz/discord.py)
+- [Pillow](https://github.com/python-pillow/Pillow)
 
 ## Setup
 

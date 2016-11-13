@@ -8,10 +8,13 @@ These are needed to be able to run **sudobot**.
 - [Python 3.5](https://www.python.org/)
 - [Discord.py](https://github.com/Rapptz/discord.py)
 - [Pillow](https://github.com/python-pillow/Pillow)
+- [A unicode font like Noto Sans CJK (or a font of your choice)](https://www.google.com/get/noto/help/cjk/)
 
 ## Setup
 
 Edit `config.sample.json` to your liking, then save it as `config.json`.
+
+Place your selected font in `/data/fonts/` and be sure to link it in the config.
 
 Once you're ready just run `python bot.py` in the active directory to start the bot.
 

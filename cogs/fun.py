@@ -114,14 +114,16 @@ class Fun:
                         maxsize = (bg_width,700);
                     else:
                         maxsize = (800,500);
-                        
+
                     bg.thumbnail(maxsize);
                 except:
                     print('No user background found. Using default.');
                     bg = Image.open('data/images/background_default.png');
 
-            fontFace = 'data/fonts/noto_uni.ttc';
-            fontFace_bold = 'data/fonts/noto_uni.ttc';
+            # fontFace = 'data/fonts/noto_uni.ttc';
+            # fontFace_bold = 'data/fonts/noto_uni.ttc';
+            fontFace = 'data/fonts/' + self.config['profile_font'];
+            fontFace_bold = 'data/fonts/' + self.config['profile_font_bold'];
             fontsize = 18;
             headersize = 32;
 

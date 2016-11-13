@@ -18,6 +18,9 @@
 
   "user_roles": ["a_role","another_role"],
 
-  "profile_questions": ["Question 1","Question 2"]
+  "profile_questions": ["Question 1","Question 2"],
 
+  "profile_font": "place_noto_unicode_font_here.me",
+
+  "profile_font_bold": "place_noto_unicode_font_here.me"
 }

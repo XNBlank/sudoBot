@@ -86,18 +86,42 @@ class Fun:
             userAvatar = av.resize((128,128), resample=Image.BILINEAR).convert('RGBA');
 
             print(userAvatar.mode);
-
+            maxsize = (800, 500);
             try:
+
+
                 bg = Image.open('data/users/backgrounds/{0}.jpg'.format(user.id));
+
+                bg_width, bg_height = bg.size;
+
+                if(bg_width > bg_height):
+                    maxsize = (1000,bg_height);
+                elif(bg_width < bg_height):
+                    maxsize = (bg_width,700);
+                else:
+                    maxsize = (800,500);
+
+                bg.thumbnail(maxsize);
             except:
                 try:
                     bg = Image.open('data/users/backgrounds/{0}.png'.format(user.id));
+
+                    bg_width, bg_height = bg.size;
+
+                    if(bg_width > bg_height):
+                        maxsize = (1000,bg_height);
+                    elif(bg_width < bg_height):
+                        maxsize = (bg_width,700);
+                    else:
+                        maxsize = (800,500);
+                        
+                    bg.thumbnail(maxsize);
                 except:
                     print('No user background found. Using default.');
                     bg = Image.open('data/images/background_default.png');
 
-            fontFace = 'data/fonts/noto.ttf';
-            fontFace_bold = 'data/fonts/noto_bold.ttf';
+            fontFace = 'data/fonts/noto_uni.ttc';
+            fontFace_bold = 'data/fonts/noto_uni.ttc';
             fontsize = 18;
             headersize = 32;
 
@@ -159,9 +183,9 @@ class Fun:
                 for key, quest in zip(sorted(_answers),_questions):
                     print('{0} {1}:{2}'.format(key,quest,_answers[key]));
                     if(int(key) < 5):
-                        dd.text((80, 260 + ((int(key)-1) * 48)), textwrap.fill(quest,45) + "\n" + textwrap.fill(_answers[key],45), fill=(74, 144, 226, 255), font=desc_font);
+                        dd.text((80, 260 + ((int(key)-1) * 48)), textwrap.fill(quest,50) + "\n" + textwrap.fill(_answers[key],50), fill=(74, 144, 226, 255), font=desc_font);
                     else:
-                        dd.text((410, 260 + ((int(key)-6) * 48)), textwrap.fill(quest,45) + "\n" + textwrap.fill(_answers[key],45), fill=(74, 144, 226, 255), font=desc_font);
+                        dd.text((410, 260 + ((int(key)-6) * 48)), textwrap.fill(quest,50) + "\n" + textwrap.fill(_answers[key],50), fill=(74, 144, 226, 255), font=desc_font);
 
 
 
@@ -224,11 +248,11 @@ class Fun:
 
         for idx, i in enumerate(questions):
             await self.bot.send_message(ctx.message.author, i);
-            _answer = await self.bot.wait_for_message(timeout=30.0, author=ctx.message.author);
+            _answer = await self.bot.wait_for_message(timeout=300.0, author=ctx.message.author);
 
             if(_answer == None):
-                return await self.bot.send_message(ctx.message.author, 'Sorry. You seemed to have timed out. Send the command again to restart the setup process.');
-            elif(_answer.content == 'skip'):
+                return await self.bot.send_message(ctx.message.author, 'Sorry. You seemed to have gone AFK. Send the command again to restart the setup process.');
+            elif(_answer.content.lower() == 'skip'):
                 answers[idx] = 'N/A';
             else:
                 answers[idx] = _answer.content;

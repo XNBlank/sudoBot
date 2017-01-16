@@ -41,10 +41,13 @@ General:
   leavedistro  Leave a distribution role that is currently assigned to you.
   pacman       Pacman commands.
   source       Post a link to the bot source code.
+  warnstatus   Check your own warning points.
 Mod:
   kick         Kicks a member from the server.
   ban          Bans a member from the server.
   prune        Prunes bot messages.
+  warn         Warns a user
+  liftwarn     Removes warning points from user
 Misc:
   uptime       Check bot uptime.
   help         Shows this message.

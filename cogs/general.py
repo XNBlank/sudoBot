@@ -84,7 +84,7 @@ class General:
             elif idx >= len(_roles)-1:
                 return await self.bot.say('You\'re not in that role.');
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, hidden=True)
     async def pacman(self, ctx, cmd=None, *, query=None):
         """Pacman commands.
         ```
@@ -135,8 +135,8 @@ class General:
                         if cnt < 20:
                             for _cnt, ii in enumerate(pkgsinfos):
                                 if _cnt < 20:
-                                    #result += '# ' + 'Repo : ' + i[1] + ' | Arch : ' + i[2] + '| Name : ' + i[0] + '\n';
-                                    result += '' + i[1] + '/' + i[0] + ' (' + i[2] + ') \n';
+                                    result += '# ' + 'Repo : ' + i[1] + ' | Arch : ' + i[2] + '| Name : ' + i[0] + '\n';
+                                    #result += '' + i[1] + '/' + i[0] + ' (' + i[2] + ') \n';
 
                     await self.bot.say('Reply with the name of one of the following package names within 20 seconds to get more information.');
                     await self.bot.say(result + '\n```');
@@ -199,3 +199,23 @@ class General:
         """Post a link to the bot source code."""
         source = "https://github.com/XNBlank/sudoBot";
         await self.bot.say(source);
+
+    
+    @commands.command(pass_context=True, no_pm=True)
+    async def warnstatus(self, ctx):
+        
+        user = ctx.message.author;
+
+        dataFile = 'data/warns/warns.dat';
+        data = {};
+
+        with open(dataFile, 'r', encoding='utf8') as f:
+            data = json.load(f);
+            print(data);
+            print('closed');
+
+        if(user.id not in data or int(data["{0}".format(user.id)] == 0)):
+            await self.bot.send_message(ctx.message.channel,"You currently have 0 warning points! Good job!");
+        else:
+            warnCount = data["{0}".format(user.id)];
+            await self.bot.send_message(ctx.message.channel,"You currently have {0} warning points.".format(warnCount));

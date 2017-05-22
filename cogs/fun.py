@@ -22,17 +22,26 @@ class Fun:
         if ctx.invoked_subcommand is None:
             return await self.bot.say('Invalid amount of arguments passed.')
 
+    def _box_text(self, text : str):
+        """ Convert text into a box of fixedwidth text. """
+
+        # Prevent escaping from the preformatted text block by adding a
+        # zero-width space after each backtick in the input.
+        text_sanitised = text.replace("`", "`\u200B")
+        text_boxed = '```txt\n{0}```'.format(text_sanitised)
+        return text_boxed
+
     @cow.command()
     async def think(self, *, message : str):
         cow = self.build_box(message, 40) + self.build_thinkcow()
 
-        return await self.bot.say('```txt\n{0}```'.format(cow))
+        return await self.bot.say(self._box_text(cow))
 
     @cow.command()
     async def say(self, *, message : str):
         cow = self.build_box(message, 40) + self.build_saycow()
 
-        return await self.bot.say('```txt\n{0}```'.format(cow))
+        return await self.bot.say(self._box_text(cow))
 
     @commands.command(pass_context=True)
     async def profile(self, ctx, *, user : discord.Member):

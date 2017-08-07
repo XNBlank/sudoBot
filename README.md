@@ -3,7 +3,7 @@ A Discord bot written in Python
 
 ## Getting Started
 
-These are needed to be able to run **sudobot**.
+These are needed to be able to run **sudoBot**.
 
 - [Python 3.5](https://www.python.org/)
 - [Discord.py](https://github.com/Rapptz/discord.py)
@@ -20,7 +20,7 @@ Once you're ready just run `python bot.py` in the active directory to start the 
 
 ## Cogs
 
-**Sudobot** has different modules that you can enable / disable. The current 'cogs' available are : 
+**sudoBot** has different modules that you can enable / disable. The current 'cogs' available are : 
 
 - General : General commands used within a server. 
 - Fun : Commands that are fun for users to play with, and serve nothing other than lighthearted spammy goodness.

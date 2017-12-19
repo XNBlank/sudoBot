@@ -33,7 +33,7 @@ class Mod:
 
             for idx, i in enumerate(roles):
                 role = i.name
-                if(role == "Moderator"):
+                if(role == self.config['mod_role']):
                     mod_role = i
 
             reason = 'Reason not given. {0} feel free to edit this message to put a reason.'.format(mod_role.mention)
@@ -72,7 +72,7 @@ class Mod:
 
             for idx, i in enumerate(roles):
                 role = i.name
-                if(role == "Moderator"):
+                if(role == self.config['mod_role']):
                     mod_role = i
 
             reason = 'Reason not given. {0} feel free to edit this message to put a reason.'.format(mod_role.mention)
@@ -136,7 +136,7 @@ class Mod:
 
             for idx, i in enumerate(roles):
                 role = i.name
-                if(role == "Moderator"):
+                if(role == self.config['mod_role']):
                     mod_role = i
 
             reason = 'Reason not given. {0} feel free to edit this message to put a reason.'.format(mod_role.mention)

@@ -1,0 +1,17 @@
+{
+    "token": "",
+
+    "prefix_settings" : {
+        "prefix" : "sudo",
+        "use_space" : true
+    },
+
+    "owner_ids" : [],
+    "user_roles": [],
+    "modules" : ["roles","admin","profile"],
+    "profile_questions": [],
+    "fonts" : {
+        "normal" : "NotoSansCJK-Regular.ttc",
+        "bold" : "NotoSansCJK-Bold.ttc"
+    }
+}

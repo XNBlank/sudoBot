@@ -80,9 +80,7 @@ class Profile:
 
             bg = ImageOps.fit(bg,maxsize)
 
-            # bg.thumbnail( maxsize )
-        except Exception as e:
-            raise Exception(e)
+        except:
             bg = Image.open('data/images/background_default.png')
 
         fontFace = 'data/fonts/{}'.format(self.config['fonts']['normal'])

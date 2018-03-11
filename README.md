@@ -6,7 +6,7 @@ A Discord bot written in Python using Discord-Py Rewrite
 These are needed to be able to run **sudoBot**.
 
 - [Python 3.5](https://www.python.org/)
-- [Discord.py](https://github.com/Rapptz/discord.py)
+- [Discord.py[Rewrite]](https://github.com/Rapptz/discord.py/tree/rewrite)
 - [Pillow](https://github.com/python-pillow/Pillow)
 - [A unicode font like Noto Sans CJK (or a font of your choice)](https://www.google.com/get/noto/help/cjk/)
 
